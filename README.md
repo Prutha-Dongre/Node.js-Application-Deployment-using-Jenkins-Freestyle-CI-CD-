@@ -11,6 +11,11 @@ The pipeline automates:
 
 ---
 
+## ➤  Architecture Diagram
+![archi](./pictures/architecture.png)
+
+---
+
 ## ➤  Architecture / Workflow
 ```
 01-create-node-env
@@ -36,7 +41,7 @@ The pipeline automates:
 
 ---
 
-## 🔧 Jenkins Job Setup
+## ➤ Jenkins Job Setup
 
 ###  Job 1: Create Environment
 
@@ -51,11 +56,9 @@ sudo apt update
 sudo apt install -y nodejs
 sudo apt install -y npm
 sudo npm install -g pm2
-
-node -v
-npm -v
-pm2 -v
 ```
+
+![job1](./pictures/job1.png)
 
 **Post-Build Action:**
 ➡️ Trigger: 02-node-pull-repo
@@ -85,6 +88,9 @@ Pulls the Node.js application code from GitHub.
 **Post-Build Action:**
 - Build other projects: `03-node-install-deps`
 
+![job2](./pictures/job2.png)
+
+
 ###  Job 3: Install Dependencies
 
 **Job Name:** `03-node-install-deps`
@@ -106,6 +112,9 @@ npm install
 **Post-Build Action:**
 - Build other projects: 04-node-deploy-app
 
+![job3](./pictures/job3.png)
+
+
 ###  Job 4: Deploy Application
 
 **Job Name:** `04-node-deploy-app`
@@ -124,9 +133,10 @@ Deploys the Node.js application using PM2. It starts the app if not running, oth
 cd /var/lib/jenkins/workspace/02-node-pull-repo
 
 pm2 start app.js --name node-app || pm2 restart node-app
-
-pm2 save
 ```
+
+![job4](./pictures/job4.png)
+
 
 ## ➤ Access Application
 Once deployed, access your app using:
@@ -134,9 +144,13 @@ Once deployed, access your app using:
 http://<EC2-PUBLIC-IP>:<APP-PORT>
 ```
 
+![Access](./pictures/access%20app.png)
+
+
 ## ➤ Learning Outcome
 - Understood CI/CD pipeline basics
 - Learned Jenkins job chaining
 - Deployed Node.js app using PM2
 - Gained hands-on DevOps experience
 
+![all jobs](./pictures/all%20jobs.png)
